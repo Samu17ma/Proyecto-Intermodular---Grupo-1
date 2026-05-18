@@ -39,8 +39,8 @@ function createFireball() {
 
 function setupFireballCollisions(fireball) {
     let groups = [
-        this.blocksGroup, this.misteryBlocksGroup, this.platformGroup, 
-        this.goombasGroup, this.immovableBlocksGroup, this.constructionBlocksGroup
+        this.blocksGroup, this.misteryBlocksGroupCoin, this.misteryBlocksGroupMushroom, this.misteryBlocksGroupFireflower, 
+        this.platformGroup, this.goombasGroup, this.immovableBlocksGroup, this.constructionBlocksGroup
     ];
 
     groups.forEach(group => {

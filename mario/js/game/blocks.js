@@ -1,4 +1,4 @@
-function revealHiddenBlock(player, block) {
+function revealHiddenBlockCoin(player, block) {
     if (!player.body.blocked.up) return;
 
     this.blockBumpSound.play();
@@ -9,26 +9,51 @@ function revealHiddenBlock(player, block) {
     block.setTexture('empty-block');
     animateBlock.call(this, block, screenHeight / 34.5);
 
-    const random = Phaser.Math.Between(0, 100);
-    if (random < 90) {
-        handleCoin.call(this, block);
-    } else if (random < 96) {
-        handlePowerUp.call(this, block, 'super-mushroom', mushroomsVelocityX, consumeMushroom);
-    } else {
-        handlePowerUp.call(this, block, 'fire-flower', 0, consumeFireflower);
-    }
+    handleCoin.call(this, block);
 }
 
-function animateBlock(block, offsetY) {
+function revealHiddenBlockMushroom(player, block) {
+    if (!player.body.blocked.up) return;
+
+    this.blockBumpSound.play();
+    if (emptyBlocksList.includes(block)) return;
+
+    emptyBlocksList.push(block);
+    block.anims.stop();
+    block.setTexture('empty-block');
+    animateBlock.call(this, block, screenHeight / 34.5, () => {
+        handlePowerUp.call(this, block, 'super-mushroom', mushroomsVelocityX, consumeMushroom);
+    });
+}
+
+function revealHiddenBlockFireflower(player, block) {
+    if (!player.body.blocked.up) return;
+    
+    this.blockBumpSound.play();
+    if (emptyBlocksList.includes(block)) return;
+    emptyBlocksList.push(block);
+    
+    block.anims.stop();
+    block.setTexture('empty-block');
+    animateBlock.call(this, block, screenHeight / 34.5, () => {
+        handlePowerUp.call(this, block, 'fire-flower', 0, consumeFireflower);
+    });
+}
+
+function animateBlock(block, offsetY, onComplete) {
+    const originalY = block.y;
     this.tweens.add({
         targets: block,
         duration: 75,
-        y: block.y - offsetY,
+        y: originalY - offsetY,
         onComplete: () => {
             this.tweens.add({
                 targets: block,
                 duration: 75,
-                y: block.y + offsetY
+                y: originalY,
+                onComplete: () => {
+                    if (typeof onComplete === 'function') onComplete();
+                }
             });
         }
     });
@@ -44,10 +69,40 @@ function handleCoin(block) {
 
 function handlePowerUp(block, sprite, velocityX, consumeCallback) {
     this.powerUpAppearsSound.play();
-    let powerUp = this.physics.add.sprite(block.getBounds().x, block.getBounds().y, sprite)
-        .setScale(screenHeight / 345).setOrigin(0);
-    if (sprite === 'super-mushroom') powerUp.setBounce(1, 0);
-    animateAndMove.call(this, powerUp, screenHeight / 20, velocityX);
+
+    const blockBounds = block.getBounds();
+    const scale = screenHeight / 345;
+
+    const powerUp = this.physics.add
+    .sprite(0, 0, sprite)
+    .setScale(scale)
+    .setOrigin(0, 0);
+    
+    powerUp.body.setSize(powerUp.displayWidth, powerUp.displayHeight);
+    powerUp.body.setOffset(0, 0);
+
+    
+    powerUp.body.setCollideWorldBounds(true);
+
+    if (sprite === 'super-mushroom') {
+        powerUp.setPosition(
+            blockBounds.centerX - powerUp.displayWidth / 2,
+            blockBounds.y - powerUp.displayHeight - 2
+        );
+        powerUp.body.allowGravity = true;
+        powerUp.body.immovable = false;
+        powerUp.setBounce(0, 0);
+        powerUp.setVelocityX(Phaser.Math.Between(0, 10) <= 4 ? velocityX : -velocityX);
+    } else {
+        powerUp.setPosition(
+            blockBounds.centerX - powerUp.displayWidth / 2,
+            blockBounds.y - powerUp.displayHeight
+        );
+        powerUp.body.allowGravity = false;
+        powerUp.body.immovable = true;
+        powerUp.setBounce(0, 0);
+    }
+
     this.physics.add.overlap(player, powerUp, consumeCallback, null, this);
     addPowerUpColliders.call(this, powerUp);
 }
@@ -70,22 +125,32 @@ function animateAndDestroy(sprite, offsetY) {
     });
 }
 
-function animateAndMove(sprite, offsetY, velocityX) {
-    this.tweens.add({
-        targets: sprite,
-        duration: 300,
-        y: sprite.y - offsetY,
-        onComplete: () => {
-            if (velocityX !== 0) {
-                sprite.setVelocityX(Phaser.Math.Between(0, 10) <= 4 ? velocityX : -velocityX);
-            }
+function animateAndMove(sprite, velocityX) {
+    if (sprite.body) {
+        if (velocityX !== 0) {
+            sprite.body.setVelocityX(Phaser.Math.Between(0, 10) <= 4 ? velocityX : -velocityX);
         }
-    });
+    } else {
+        if (velocityX !== 0) {
+            sprite.setVelocityX(Phaser.Math.Between(0, 10) <= 4 ? velocityX : -velocityX);
+        }
+    }
 }
 
 function addPowerUpColliders(powerUp) {
-    const groups = [this.misteryBlocksGroup, this.blocksGroup, this.platformGroup, this.immovableBlocksGroup, this.constructionBlocksGroup];
-    groups.forEach(group => this.physics.add.collider(powerUp, group.getChildren()));
+    const groups = [
+        this.misteryBlocksGroupCoin,
+        this.misteryBlocksGroupMushroom,
+        this.misteryBlocksGroupFireflower,
+        this.blocksGroup,
+        this.platformGroup,
+        this.immovableBlocksGroup,
+        this.constructionBlocksGroup
+    ];
+    groups.forEach(group => {
+        if (!group) return;
+        this.physics.add.collider(powerUp, group);
+    });
 }
 
 function destroyBlock(player, block) {

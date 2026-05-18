@@ -160,7 +160,9 @@ function generateLevel() {
     this.fallProtectionGroup = this.add.group();
     this.blocksGroup = this.add.group();
     this.constructionBlocksGroup = this.add.group();
-    this.misteryBlocksGroup = this.add.group();
+    this.misteryBlocksGroupCoin = this.add.group();
+    this.misteryBlocksGroupMushroom = this.add.group();
+    this.misteryBlocksGroupFireflower = this.add.group();
     this.immovableBlocksGroup = this.add.group();
     this.groundCoinsGroup = this.add.group();
 
@@ -172,7 +174,7 @@ function generateLevel() {
 
     for (i = 0; i <= platformPieces; i++) {
         // Holes will have a 10% chance of spawning
-        let number = Phaser.Math.Between(0, 100);
+        let number = 0;
 
         // Check if its not a hole, this means is not that 20%, is not in the spawn safe area and is not close to the end castle.
         if (pieceStart >= (lastWasHole > 0 || lastWasStructure > 0 || worldWidth - platformPiecesWidth * 4)
@@ -256,13 +258,31 @@ function generateLevel() {
         fallProtection.body.immovable = true;
     });
 
-    this.misteryBlocksGroup.getChildren().forEach(misteryBlock => {
+    this.misteryBlocksGroupCoin.getChildren().forEach(misteryBlock => {
         this.physics.add.existing(misteryBlock);
         misteryBlock.body.allowGravity = false;
         misteryBlock.body.immovable = true;
         misteryBlock.depth = 2;
         misteryBlock.anims.play('mistery-block-default', true);
-        this.physics.add.collider(player, misteryBlock, revealHiddenBlock, null, this);
+        this.physics.add.collider(player, misteryBlock, revealHiddenBlockCoin, null, this);
+    });
+
+        this.misteryBlocksGroupMushroom.getChildren().forEach(misteryBlock => {
+        this.physics.add.existing(misteryBlock);
+        misteryBlock.body.allowGravity = false;
+        misteryBlock.body.immovable = true;
+        misteryBlock.depth = 2;
+        misteryBlock.anims.play('mistery-block-default', true);
+        this.physics.add.collider(player, misteryBlock, revealHiddenBlockMushroom, null, this);
+    });
+
+    this.misteryBlocksGroupFireflower.getChildren().forEach(misteryBlock => {
+        this.physics.add.existing(misteryBlock);
+        misteryBlock.body.allowGravity = false;
+        misteryBlock.body.immovable = true;
+        misteryBlock.depth = 2;
+        misteryBlock.anims.play('mistery-block-default', true);
+        this.physics.add.collider(player, misteryBlock, revealHiddenBlockFireflower, null, this);
     });
     
     this.blocksGroup.getChildren().forEach(block => {

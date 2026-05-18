@@ -176,6 +176,7 @@ function consumeMushroom(player, mushroom) {
     this.anims.pauseAll();
     this.physics.pause();
     player.setTint(0xfefefe).anims.play('grown-mario-idle');
+    player.body.setSize(14, 32).setOffset(2, 0);
 
     let i = 0;
     let interval = setInterval(() => {
@@ -212,6 +213,7 @@ function consumeFireflower(player, fireFlower) {
     this.physics.pause();
 
     player.setTint(0xfefefe).anims.play('fire-mario-idle');
+    player.body.setSize(14, 32).setOffset(2, 0);
 
     let i = 0;
     let interval = setInterval(() => {

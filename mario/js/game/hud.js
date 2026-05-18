@@ -100,7 +100,7 @@ function gameOverFunc() {
     player.body.enable = false;
     this.finalFlagMast.body.enable = false;
 
-    [...this.goombasGroup.getChildren(), ...this.platformGroup.getChildren(), ...this.blocksGroup.getChildren(), ...this.misteryBlocksGroup.getChildren()]
+    [...this.goombasGroup.getChildren(), ...this.platformGroup.getChildren(), ...this.blocksGroup.getChildren(), ...this.misteryBlocksGroupCoin.getChildren(), ...this.misteryBlocksGroupMushroom.getChildren(), ...this.misteryBlocksGroupFireflower.getChildren(), ...this.immovableBlocksGroup.getChildren(), ...this.constructionBlocksGroup.getChildren()  ]
         .forEach(obj => { obj.anims?.stop(); obj.body.enable = false; });
 
     player.body.setSize(16, 16).setOffset(0).setVelocityX(0);

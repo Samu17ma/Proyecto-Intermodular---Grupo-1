@@ -41,6 +41,7 @@ const mushroomsVelocityX = screenWidth / 15;
 const goombasVelocityX = screenWidth / 19;
 
 let isLevelOverworld;
+let structureIndex = 0;
 let worldHolesCoords = [];
 let emptyBlocksList = [];
 let player, playerController;

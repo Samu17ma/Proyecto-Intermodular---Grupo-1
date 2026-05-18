@@ -32,12 +32,16 @@ function createGoomba(x) {
 function setupGoombaCollisions(goomba) {
     const platformPieces = this.platformGroup.getChildren();
     const blocks = this.blocksGroup.getChildren();
-    const misteryBlocks = this.misteryBlocksGroup.getChildren();
+    const misteryBlocksCoin = this.misteryBlocksGroupCoin.getChildren();
+    const misteryBlocksMushroom = this.misteryBlocksGroupMushroom.getChildren();
+    const misteryBlocksFireflower = this.misteryBlocksGroupFireflower.getChildren();
     const goombas = this.goombasGroup.getChildren();
 
     this.physics.add.collider(goomba, platformPieces);
     this.physics.add.collider(goomba, blocks);
-    this.physics.add.collider(goomba, misteryBlocks);
+    this.physics.add.collider(goomba, misteryBlocksCoin);
+    this.physics.add.collider(goomba, misteryBlocksMushroom);
+    this.physics.add.collider(goomba, misteryBlocksFireflower);
     this.physics.add.collider(goomba, goombas);
     this.physics.add.collider(goomba, this.finalFlagMast);
     this.physics.add.overlap(player, goomba, checkGoombaCollision, null, this);
