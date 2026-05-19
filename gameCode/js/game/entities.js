@@ -1,6 +1,6 @@
 function createGoombas() {
     this.goombasGroup = this.add.group();
-    const numGoombas = Math.trunc(worldWidth / 960);
+    const numGoombas = Math.trunc(worldWidth / 550);
 
     for (let i = 0; i < numGoombas; i++) {
         const x = generateRandomCoordinate(true);

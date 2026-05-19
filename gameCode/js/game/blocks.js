@@ -78,7 +78,7 @@ function handlePowerUp(block, sprite, velocityX, consumeCallback) {
     .setScale(scale)
     .setOrigin(0, 0);
     
-    powerUp.body.setSize(powerUp.displayWidth, powerUp.displayHeight);
+    powerUp.body.setSize(powerUp.displayWidth-2, powerUp.displayHeigh-2 );
     powerUp.body.setOffset(0, 0);
 
     
@@ -86,8 +86,8 @@ function handlePowerUp(block, sprite, velocityX, consumeCallback) {
 
     if (sprite === 'super-mushroom') {
         powerUp.setPosition(
-            blockBounds.centerX - powerUp.displayWidth / 2,
-            blockBounds.y - powerUp.displayHeight - 2
+            blockBounds.centerX - powerUp.displayWidth,
+            blockBounds.y - powerUp.displayHeight - 4
         );
         powerUp.body.allowGravity = true;
         powerUp.body.immovable = false;
@@ -96,11 +96,11 @@ function handlePowerUp(block, sprite, velocityX, consumeCallback) {
     } else {
         powerUp.setPosition(
             blockBounds.centerX - powerUp.displayWidth / 2,
-            blockBounds.y - powerUp.displayHeight
+            blockBounds.y - powerUp.displayHeight - 7
         );
         powerUp.body.allowGravity = false;
         powerUp.body.immovable = true;
-        powerUp.setBounce(0, 0);
+        powerUp.setBounce(0.2, 0);
     }
 
     this.physics.add.overlap(player, powerUp, consumeCallback, null, this);
