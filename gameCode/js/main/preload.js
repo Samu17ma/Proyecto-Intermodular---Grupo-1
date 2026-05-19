@@ -34,8 +34,7 @@ function preload() {
     });
 
     // Determine level style
-    //isLevelOverworld = Phaser.Math.Between(0, 100) <= 50;
-    isLevelOverworld = true; // Force overworld for testing purposes
+    isLevelOverworld = Phaser.Math.Between(0, 100) <= 50;
     const levelStyle = isLevelOverworld ? 'overworld' : 'underground';
 
     // Utility functions for loading assets
