@@ -130,7 +130,8 @@ function drawWorld() {
     }
 
     //> Final flag
-    this.finalFlagMast = this.add.tileSprite(worldWidth - (worldWidth / 30), propsY, 16, 167, 'flag-mast').setOrigin(0, 1).setScale(screenHeight / 400);
+    this.finalFlagMast = this.add.tileSprite(worldWidth - (worldWidth / 30), propsY, 16, 167, 'flag-mast').setOrigin(0, 1)
+        .setScale(screenHeight / 400);
     this.physics.add.existing(this.finalFlagMast);
     this.finalFlagMast.immovable = true;
     this.finalFlagMast.allowGravity = false;
@@ -167,8 +168,11 @@ function generateLevel() {
     this.groundCoinsGroup = this.add.group();
 
     if (!isLevelOverworld) {
-        this.blocksGroup.add(this.add.tileSprite(screenWidth, screenHeight - platformHeight / 1.2, 16, screenHeight - platformHeight, 'construction-block').setScale(screenHeight / 345).setOrigin(0, 1));
-        this.undergroundRoof = this.add.tileSprite(screenWidth * 1.2, screenHeight / 20, worldWidth / 2.68, 16, 'construction-block').setScale(screenHeight / 345).setOrigin(0);
+        this.blocksGroup.add(this.add
+            .tileSprite(screenWidth, screenHeight - platformHeight / 1.2, 16, screenHeight - platformHeight, 'construction-block')
+            .setScale(screenHeight / 345).setOrigin(0, 1));
+        this.undergroundRoof = this.add.tileSprite(screenWidth * 1.2, screenHeight / 20, worldWidth / 2.68, 16, 'construction-block')
+            .setScale(screenHeight / 345).setOrigin(0);
         this.blocksGroup.add(this.undergroundRoof);
     }
 
@@ -209,13 +213,15 @@ function generateLevel() {
             });
 
             lastWasHole = 2;
-            this.fallProtectionGroup.add(this.add.rectangle(pieceStart + platformPiecesWidth * 2, screenHeight - platformHeight, 5, 5).setOrigin(0, 1));
+            this.fallProtectionGroup.add(this.add.rectangle(pieceStart + platformPiecesWidth * 2, screenHeight - platformHeight, 5, 5)
+                .setOrigin(0, 1));
             this.fallProtectionGroup.add(this.add.rectangle(pieceStart, screenHeight - platformHeight, 5, 5).setOrigin(1, 1));
         }
         pieceStart += platformPiecesWidth * 2;
     }
 
-    this.startScreenTrigger = this.add.tileSprite(screenWidth, screenHeight - platformHeight, 32, 28, 'horizontal-tube').setScale(screenHeight / 345).setOrigin(1, 1);
+    this.startScreenTrigger = this.add.tileSprite(screenWidth, screenHeight - platformHeight, 32, 28, 'horizontal-tube')
+        .setScale(screenHeight / 345).setOrigin(1, 1);
     this.startScreenTrigger.depth = 4;
     this.physics.add.existing(this.startScreenTrigger);
     this.startScreenTrigger.body.allowGravity = false;
@@ -230,21 +236,26 @@ function generateLevel() {
     this.fallProtectionGroup.add(invisibleWall2);
 
     if (!isLevelOverworld) {
-        this.verticalTube = this.add.tileSprite(worldWidth - screenWidth, screenHeight - platformHeight, 32, screenHeight, 'vertical-extra-large-tube').setScale(screenHeight / 345).setOrigin(1, 1);
+        this.verticalTube = this.add
+            .tileSprite(worldWidth - screenWidth, screenHeight - platformHeight, 32, screenHeight, 'vertical-extra-large-tube')
+            .setScale(screenHeight / 345).setOrigin(1, 1);
         this.verticalTube.depth = 2;
         this.physics.add.existing(this.verticalTube);
         this.verticalTube.body.allowGravity = false;
         this.verticalTube.body.immovable = true;
         this.physics.add.collider(player, this.verticalTube);
 
-        this.finalTrigger = this.add.tileSprite(worldWidth - screenWidth * 1.03, screenHeight - platformHeight, 40, 31, 'horizontal-final-tube').setScale(screenHeight / 345).setOrigin(1, 1);
+        this.finalTrigger = this.add
+            .tileSprite(worldWidth - screenWidth * 1.03, screenHeight - platformHeight, 40, 31, 'horizontal-final-tube')
+            .setScale(screenHeight / 345).setOrigin(1, 1);
         this.finalTrigger.depth = 2;
         this.physics.add.existing(this.finalTrigger);
         this.finalTrigger.body.allowGravity = false;
         this.finalTrigger.body.immovable = true;
         this.physics.add.collider(player, this.finalTrigger, teleportToLevelEnd, null, this);
 
-        let invisibleWall1 = this.add.rectangle(worldWidth - screenWidth, screenHeight - platformHeight, 1, screenHeight).setOrigin(0.5, 1);
+        let invisibleWall1 = this.add.rectangle(worldWidth - screenWidth, screenHeight - platformHeight, 1, screenHeight)
+            .setOrigin(0.5, 1);
         this.physics.add.existing(invisibleWall1);
         invisibleWall1.body.allowGravity = false;
         invisibleWall1.body.immovable = true;
@@ -352,7 +363,8 @@ function drawStartScreen() {
     this.add.image(screenWidth / 1.5, propsY, 'bush2').setOrigin(0, 1).setScale(screenHeight / 609);
     this.add.tileSprite(screenWidth / 15, propsY, 350, 35, 'fence').setOrigin(0, 1).setScale(screenHeight / 863);
 
-    this.customBlock = this.add.sprite(screenCenterX, screenHeight - (platformHeight * 1.9), 'custom-block').setScale(screenHeight / 345);
+    this.customBlock = this.add.sprite(screenCenterX, screenHeight - (platformHeight * 1.9), 'custom-block')
+        .setScale(screenHeight / 345);
     this.customBlock.anims.play('custom-block-default');
     this.physics.add.collider(player, this.customBlock, function() {
         if (player.body.blocked.up) showSettings.call(this);
