@@ -80,23 +80,22 @@ function handlePowerUp(block, sprite, velocityX, consumeCallback) {
     
     powerUp.body.setSize(powerUp.displayWidth-2, powerUp.displayHeigh-2 );
     powerUp.body.setOffset(0, 0);
-
     
     powerUp.body.setCollideWorldBounds(true);
 
     if (sprite === 'super-mushroom') {
         powerUp.setPosition(
-            blockBounds.centerX - powerUp.displayWidth,
+            blockBounds.centerX  - powerUp.displayWidth / 2,
             blockBounds.y - powerUp.displayHeight - 4
         );
         powerUp.body.allowGravity = true;
-        powerUp.body.immovable = false;
         powerUp.setBounce(0, 0);
         powerUp.setVelocityX(Phaser.Math.Between(0, 10) <= 4 ? velocityX : -velocityX);
+        powerUp.body.immovable = false; 
     } else {
         powerUp.setPosition(
             blockBounds.centerX - powerUp.displayWidth / 2,
-            blockBounds.y - powerUp.displayHeight - 7
+            blockBounds.y - powerUp.displayHeight - 4
         );
         powerUp.body.allowGravity = false;
         powerUp.body.immovable = true;
