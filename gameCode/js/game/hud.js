@@ -8,8 +8,8 @@ function createHUD() {
     this.highScoreText = this.add.text(screenWidth / 2, posY, 'HIGH SCORE\n 000000', { fontFamily: 'pixel_nums', fontSize: fontSize, align: 'center' })
         .setOrigin(0.5, 0).setScrollFactor(0).setDepth(5);
 
-    this.timeLeftText = this.add.text(screenWidth * 0.925, posY, 'TIME\n' + timeLeft.toString().padStart(3, '0'), { fontFamily: 'pixel_nums', fontSize: fontSize, align: 'right' })
-        .setScrollFactor(0).setDepth(5);
+    this.timeLeftText = this.add.text(screenWidth * 0.925, posY, 'TIME\n' + timeLeft.toString().padStart(3, '0'), 
+        { fontFamily: 'pixel_nums', fontSize: fontSize, align: 'right' }).setScrollFactor(0).setDepth(5);
 
     let localHighScore = localStorage.getItem('high-score');
     if (localHighScore !== null) {
@@ -100,7 +100,15 @@ function gameOverFunc() {
     player.body.enable = false;
     this.finalFlagMast.body.enable = false;
 
-    [...this.goombasGroup.getChildren(), ...this.platformGroup.getChildren(), ...this.blocksGroup.getChildren(), ...this.misteryBlocksGroupCoin.getChildren(), ...this.misteryBlocksGroupMushroom.getChildren(), ...this.misteryBlocksGroupFireflower.getChildren(), ...this.immovableBlocksGroup.getChildren(), ...this.constructionBlocksGroup.getChildren()  ]
+    [
+        ...this.goombasGroup.getChildren(), 
+        ...this.platformGroup.getChildren(), 
+        ...this.blocksGroup.getChildren(), 
+        ...this.misteryBlocksGroupCoin.getChildren(), 
+        ...this.misteryBlocksGroupMushroom.getChildren(), 
+        ...this.misteryBlocksGroupFireflower.getChildren(), 
+        ...this.immovableBlocksGroup.getChildren(), 
+        ...this.constructionBlocksGroup.getChildren()  ]
         .forEach(obj => { obj.anims?.stop(); obj.body.enable = false; });
 
     player.body.setSize(16, 16).setOffset(0).setVelocityX(0);
