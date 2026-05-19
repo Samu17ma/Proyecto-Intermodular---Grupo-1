@@ -102,6 +102,7 @@ function gameOverFunc() {
 
     [
         ...this.goombasGroup.getChildren(), 
+        ...this.slimesGroup.getChildren(),
         ...this.platformGroup.getChildren(), 
         ...this.blocksGroup.getChildren(), 
         ...this.misteryBlocksGroupCoin.getChildren(), 

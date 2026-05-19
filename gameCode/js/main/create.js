@@ -27,6 +27,7 @@ function create() {
     drawWorld.call(this);
     drawStartScreen.call(this);
     createGoombas.call(this);
+    createSlimes.call(this);
     createControls.call(this);
     applySettings.call(this);
 }
