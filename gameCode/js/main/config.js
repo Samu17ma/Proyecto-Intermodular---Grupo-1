@@ -35,11 +35,11 @@ const config = {
 const worldWidth = screenWidth * 11;
 const platformHeight = screenHeight / 5;
 const startOffset = screenWidth / 2.5;
-const platformPieces = 100;
+const platformPieces = 90;
 const platformPiecesWidth = (worldWidth - screenWidth) / platformPieces;
 const mushroomsVelocityX = screenWidth / 15;
 const goombasVelocityX = screenWidth / 19;
-const slimesVelocityX = screenWidth / 18;
+const slimesVelocityX = screenWidth / 15;
 
 let isLevelOverworld;
 let structureIndex = 0;
@@ -55,7 +55,7 @@ let fireInCooldown = false;
 let furthestPlayerPos = 0;
 let flagRaised = false;
 let score = 0;
-let timeLeft = 300;
+let timeLeft = 600;
 let levelStarted = false;
 let reachedLevelEnd = false;
 let smoothedControls;

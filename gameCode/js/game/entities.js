@@ -46,7 +46,7 @@ function createGoomba(x) {
 
 function createSlime(x) {
     const slime = this.physics.add.sprite(x, screenHeight - platformHeight, 'Slime')
-        .setOrigin(0.5, 4)
+        .setOrigin(0.5, 4.5)
         .setBounce(1, 1)
         .setScale(screenHeight / 376);
 
