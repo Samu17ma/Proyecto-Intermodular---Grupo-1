@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Group 1</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+  <link rel="preload" href="assets/others/loading.gif" as="image">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+  <div id="game">
+    <img id="gif" src="assets/others/loading.gif" alt="Loading animation" class="loading-gif">
+    <img id="gif-shadow" src="assets/others/loading.gif" alt="Loading animation shadow" class="loading-gif">
+  </div>
+
+  <noscript>
+    <div class="blurbg">
+      <div class="alertpopup">
+        <h2>JavaScript disabled!</h2>
+        <hr>
+        <p>This website uses JavaScript to work, otherwise the game will not load.</p>
+        <p>Enable or stop blocking JavaScript and try again.</p>
+      </div>
+    </div>
+  </noscript>
+
+  <script src="js/helpers/screenshot.js"></script>
+  <script src="js/helpers/window-title.js"></script>
+  
+  <script src="js/game/blocks.js"></script>
+  <script src="js/game/structures.js"></script>
+  <script src="js/game/settings.js"></script>
+  <script src="js/game/fireball.js"></script>
+  <script src="js/game/player.js"></script>
+  <script src="js/game/hud.js"></script>
+  <script src="js/game/entities.js"></script>
+  
+  <script src="js/main/preload.js"></script>
+  <script src="js/main/create.js"></script>
+  <script src="js/main/update.js"></script>
+  <script src="js/main/config.js"></script>
+</body>
+
+</html>
