@@ -100,6 +100,7 @@ function handlePowerUp(block, sprite, velocityX, consumeCallback) {
         powerUp.body.allowGravity = false;
         powerUp.body.immovable = true;
         powerUp.setBounce(0.2, 0);
+        powerUp.anims.play('fire-flower-default', true);
     }
 
     this.physics.add.overlap(player, powerUp, consumeCallback, null, this);

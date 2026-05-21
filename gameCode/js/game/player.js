@@ -1,7 +1,7 @@
 function createPlayer() {
     player = this.physics.add.sprite(startOffset, screenHeight - platformHeight, 'mario')
         .setOrigin(1)
-        .setBounce(0)
+        .setBounce(0,0)
         .setCollideWorldBounds(true)
         .setScale(screenHeight / 376);
     player.depth = 3;

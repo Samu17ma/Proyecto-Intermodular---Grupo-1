@@ -13,9 +13,24 @@ function createGoombas() {
     setInterval(clearGoombas.bind(this), 250);
 }
 
+function createBats() {
+    this.batsGroup = this.add.group();
+    const numBats = Math.trunc(worldWidth / 900);
+
+    for (let i = 0; i < numBats; i++) {
+        const x = generateRandomCoordinate(true);
+        const bat = createBat.call(this, x);
+
+        this.batsGroup.add(bat);
+        setupBatCollisions.call(this, bat);
+    }
+
+    setInterval(clearBats.bind(this), 250);
+}
+
 function createSlimes() {
     this.slimesGroup = this.add.group();
-    const numSlimes = Math.trunc(worldWidth / 700);
+    const numSlimes = Math.trunc(worldWidth / 800);
 
     for (let i = 0; i < numSlimes; i++) {
         const x = generateRandomCoordinate(true);
@@ -44,9 +59,24 @@ function createGoomba(x) {
     return goomba;
 }
 
+function createBat(x) {
+    const bat = this.physics.add.sprite(x, screenHeight - platformHeight, 'bat')
+        .setOrigin(0.5, Math.floor(Math.random() * 6) + 1)
+        .setBounce(1, 1)
+        .setScale(screenHeight / 376);
+
+    bat.anims.play('bat-fly', true);
+    bat.smoothed = true;
+    bat.depth = 2;
+    bat.setVelocityX(Phaser.Math.Between(0, 10) <= 4 ? batsVelocityX : -batsVelocityX);
+    bat.setMaxVelocity(batsVelocityX, 0);
+
+    return bat;
+}
+
 function createSlime(x) {
     const slime = this.physics.add.sprite(x, screenHeight - platformHeight, 'Slime')
-        .setOrigin(0.5, 4.5)
+        .setOrigin(0.5, Math.floor(Math.random() * 6) + 1)
         .setBounce(1, 1)
         .setScale(screenHeight / 376);
 
@@ -77,6 +107,24 @@ function setupGoombaCollisions(goomba) {
     this.physics.add.overlap(player, goomba, checkGoombaCollision, null, this);
 }
 
+function setupBatCollisions(bat) {
+    const platformPieces = this.platformGroup.getChildren();
+    const blocks = this.blocksGroup.getChildren();
+    const misteryBlocksCoin = this.misteryBlocksGroupCoin.getChildren();
+    const misteryBlocksMushroom = this.misteryBlocksGroupMushroom.getChildren();
+    const misteryBlocksFireflower = this.misteryBlocksGroupFireflower.getChildren();
+    const bats = this.batsGroup.getChildren();
+
+    this.physics.add.collider(bat, platformPieces);
+    this.physics.add.collider(bat, blocks);
+    this.physics.add.collider(bat, misteryBlocksCoin);
+    this.physics.add.collider(bat, misteryBlocksMushroom);
+    this.physics.add.collider(bat, misteryBlocksFireflower);
+    this.physics.add.collider(bat, bats);
+    this.physics.add.collider(bat, this.finalFlagMast);
+    this.physics.add.overlap(player, bat, checkBatCollision, null, this);
+}
+
 function setupSlimeCollisions(slime) {
     const platformPieces = this.platformGroup.getChildren();
     const blocks = this.blocksGroup.getChildren();
@@ -98,15 +146,19 @@ function setupSlimeCollisions(slime) {
 function setupGroupCollisions() {
     const goombas = this.goombasGroup.getChildren();
     const slimes = this.slimesGroup.getChildren();
+    const bats = this.batsGroup.getChildren();
     const immovableBlocks = this.immovableBlocksGroup.getChildren();
     const fallProtection = this.fallProtectionGroup.getChildren();
 
     this.physics.add.collider(goombas, immovableBlocks);
     this.physics.add.collider(slimes, immovableBlocks);
+    this.physics.add.collider(bats, immovableBlocks);
     this.physics.add.collider(goombas, fallProtection);
     this.physics.add.collider(slimes, fallProtection);
+    this.physics.add.collider(bats, fallProtection);
     this.physics.add.collider(goombas, this.finalTrigger);
     this.physics.add.collider(slimes, this.finalTrigger);
+    this.physics.add.collider(bats, this.finalTrigger);
 }
 
 
@@ -120,6 +172,20 @@ function checkGoombaCollision(player, goomba) {
 
     if (goombaBeingStomped) {
         stompGoomba.call(this, goomba, player);
+    } else {
+        decreasePlayerState.call(this);
+    }
+}
+
+function checkBatCollision(player, bat) {
+    if (bat.dead || flagRaised) return;
+
+    const batBeingStomped = player.body.touching.down && bat.body.touching.up;
+
+    if (playerInvulnerable && !batBeingStomped) return;
+
+    if (batBeingStomped) {
+        stompBat.call(this, bat, player);
     } else {
         decreasePlayerState.call(this);
     }
@@ -155,6 +221,21 @@ function stompGoomba(goomba, player) {
     }, 500);
 }
 
+function stompBat(bat, player) {
+    bat.anims.play('bat-hurt', true);
+    bat.body.enable = false;
+    this.batsGroup.remove(bat);
+    player.setVelocityY(-velocityY / 1.5);
+    addToScore.call(this, 200, bat);
+
+    setTimeout(() => {
+        this.tweens.add({ targets: bat, duration: 300, alpha: 0 });
+    }, 200);
+    setTimeout(() => {
+        bat.destroy();
+    }, 500);
+}
+
 function stompSlime(slime, player) {
     slime.anims.play('slime-hurt', true);
     slime.body.enable = false;
@@ -179,6 +260,18 @@ function clearGoombas() {
         if (velocityX === 0 || Math.abs(velocityX) !== goombasVelocityX) {
             this.goombasGroup.remove(goomba);
             goomba.destroy();
+        }
+    }
+}
+
+function clearBats() {
+    const bats = this.batsGroup.getChildren();
+
+    for (const bat of bats) {
+        const velocityX = bat.body.velocity.x;
+        if (velocityX === 0 || Math.abs(velocityX) !== batsVelocityX) {
+            this.batsGroup.remove(bat);
+            bat.destroy();
         }
     }
 }

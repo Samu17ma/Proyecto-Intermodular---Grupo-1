@@ -40,6 +40,7 @@ const platformPiecesWidth = (worldWidth - screenWidth) / platformPieces;
 const mushroomsVelocityX = screenWidth / 15;
 const goombasVelocityX = screenWidth / 19;
 const slimesVelocityX = screenWidth / 15;
+const batsVelocityX = screenWidth / (14 + Math.floor(Math.random() * 10) + 1);
 
 let isLevelOverworld;
 let structureIndex = 0;

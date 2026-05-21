@@ -45,13 +45,14 @@ function setupFireballCollisions(fireball) {
         this.misteryBlocksGroupFireflower, 
         this.platformGroup, 
         this.goombasGroup, 
+        this.batsGroup,
         this.slimesGroup,
         this.immovableBlocksGroup, 
         this.constructionBlocksGroup
     ];
 
     groups.forEach(group => {
-        if (group === this.goombasGroup || group === this.slimesGroup) {
+        if (group === this.goombasGroup || group === this.slimesGroup || group === this.batsGroup) {
             this.physics.add.overlap(fireball, group.getChildren(), fireballCollides, null, this);
         } else {
             this.physics.add.collider(fireball, group.getChildren(), fireballBounce, null, this);
@@ -87,10 +88,12 @@ function fireballCollides(fireball, entity) {
         entity.anims.play('slime-hurt', true);
         this.slimesGroup.remove(entity);
         addToScore.call(this, 150, entity);
+    } else if (entity.texture.key === 'bat') {
+        entity.anims.play('bat-hurt', true);
+        this.batsGroup.remove(entity);
+        addToScore.call(this, 200, entity);
     }
     entity.dead = true;
-    this.goombasGroup.remove(entity);
-    this.slimesGroup.remove(entity);
     entity.setVelocityX(0);
     entity.setVelocityY(-velocityY * 0.4);
 
