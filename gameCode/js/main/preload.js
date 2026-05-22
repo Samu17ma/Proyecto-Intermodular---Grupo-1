@@ -75,8 +75,9 @@ function preload() {
         .forEach(hud => loadSpriteSheet(`hud/${hud.path}`, hud.frameWidth, hud.frameHeight));
 
     // Load mushrooms
-    ['live', 'super']
-        .forEach(item => loadImage(`collectibles/${item}-mushroom`));
+    [{ path: 'live-mushroom', frameWidth: 16, frameHeight: 16 },
+    { path: 'super-mushroom', frameWidth: 16, frameHeight: 16 }]
+        .forEach(item => loadSpriteSheet(`collectibles/${item.path}`, item.frameWidth, item.frameHeight));
 
     // Load normal scenery
     ['castle', 'flag-mast', 'final-flag', 'sign']
@@ -172,6 +173,7 @@ function createAnimations() {
         { key: 'fireball-explosion-1', target: 'fireball-explosion', frame: 0 },
         { key: 'fireball-explosion-2', target: 'fireball-explosion', frame: 1 },
         { key: 'fireball-explosion-3', target: 'fireball-explosion', frame: 2 },
+        { key: 'super-mushroom', target: 'super-mushroom', frame: 0 },
     ];
 
     const multiFrameAnimations = [
@@ -188,6 +190,7 @@ function createAnimations() {
         { key: 'custom-block-default', target: 'custom-block', start: 2, end: 0, frameRate: 5, repeat: -1, repeatDelay: 5 },
         { key: 'brick-debris-default', target: 'brick-debris', start: 0, end: 3, frameRate: 4, repeat: -1 },
         { key: 'fire-flower-default', target: 'fire-flower', start: 0, end: 3, frameRate: 6, repeat: -1 },
+        { key: 'super-mushroom-default', target: 'super-mushroom', start: 1, end: 2, frameRate: 6, repeat: -1 },
         { key: 'npc-default', target: 'npc', start: 0, end: 1, frameRate: 2, repeat: -1, repeatDelay: 10 },
     ];
 

@@ -92,6 +92,7 @@ function handlePowerUp(block, sprite, velocityX, consumeCallback) {
         powerUp.body.immovable = false; 
         powerUp.setBounce(0, 0);
         powerUp.setVelocityX(Phaser.Math.Between(0, 10) <= 4 ? velocityX : -velocityX);
+        powerUp.anims.play('super-mushroom-default', true);
     } else {
         powerUp.setPosition(
             blockBounds.centerX - powerUp.displayWidth / 2,
