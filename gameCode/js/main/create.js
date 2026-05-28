@@ -85,7 +85,7 @@ function drawWorld() {
     //Drawing scenery props
 
     //> Drawing the Sky
-    this.add.rectangle(screenWidth, 0, worldWidth, screenHeight, isLevelOverworld ? 0x8585FF : 0x000000).setOrigin(0).depth = -1;
+    this.add.rectangle(screenWidth, 0, worldWidth, screenHeight, isLevelOverworld ? 0x422d08 : 0x000000).setOrigin(0).depth = -1;
 
     let propsY = screenHeight - platformHeight;
 
@@ -337,7 +337,7 @@ function generateLevel() {
 function drawStartScreen() {
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
 
-    this.add.rectangle(0, 0, screenWidth, screenHeight, 0x8585FF).setOrigin(0).depth = -1;
+    this.add.rectangle(0, 0, screenWidth, screenHeight, 0x422d08).setOrigin(0).depth = -1;
 
     let platform = this.add.tileSprite(0, screenHeight, screenWidth / 2, platformHeight, 'start-floor-bricks')
         .setScale(2)

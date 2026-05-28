@@ -12,7 +12,7 @@ const config = {
     type: Phaser.AUTO,
     width: screenWidth,
     height: screenHeight,
-    backgroundColor: 0x8585FF,
+    backgroundColor: 0x422d08,
     parent: 'game',
     preserveDrawingBuffer: true,
     pixelArt: true,

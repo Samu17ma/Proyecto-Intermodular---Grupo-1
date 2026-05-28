@@ -104,7 +104,7 @@ function teleportToLevelEnd(player, trigger) {
         this.tpTube.body.immovable = true;
         this.physics.add.collider(player, this.tpTube);
 
-        this.add.rectangle(worldWidth - screenWidth, 0, worldWidth, screenHeight, 0x8585FF)
+        this.add.rectangle(worldWidth - screenWidth, 0, worldWidth, screenHeight, 0x422d08)
             .setOrigin(0)
             .setDepth(-1);
 
@@ -162,7 +162,6 @@ function raiseFlag() {
     return false;
 }
 
-// Function to handle consuming a mushroom power-up
 function consumeMushroom(player, mushroom) {
     if (gameOver || gameWinned) return;
 
@@ -197,7 +196,6 @@ function consumeMushroom(player, mushroom) {
     }, 1000);
 }
 
-// Function to handle consuming a fireflower power-up
 function consumeFireflower(player, fireFlower) {
     if (gameOver || gameWinned) return;
 
@@ -234,7 +232,6 @@ function consumeFireflower(player, fireFlower) {
     }, 1000);
 }
 
-// Function to handle collecting a coin
 function collectCoin(player, coin) {
     this.coinSound.play();
     addToScore.call(this, 200);
