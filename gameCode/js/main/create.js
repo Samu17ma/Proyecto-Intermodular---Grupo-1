@@ -85,7 +85,7 @@ function drawWorld() {
     //Drawing scenery props
 
     //> Drawing the Sky
-    this.add.rectangle(screenWidth, 0, worldWidth, screenHeight, isLevelOverworld ? 0x422d08 : 0x000000).setOrigin(0).depth = -1;
+    this.add.rectangle(screenWidth, 0, worldWidth, screenHeight, isLevelOverworld ? 0x333232 : 0x000000).setOrigin(0).depth = -1;
 
     let propsY = screenHeight - platformHeight;
 
