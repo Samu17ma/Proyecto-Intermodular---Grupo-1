@@ -337,7 +337,7 @@ function generateLevel() {
 function drawStartScreen() {
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
 
-    this.add.rectangle(0, 0, screenWidth, screenHeight, 0x422d08).setOrigin(0).depth = -1;
+    this.add.rectangle(0, 0, screenWidth, screenHeight, 0x4b91db).setOrigin(0).depth = -1;
 
     let platform = this.add.tileSprite(0, screenHeight, screenWidth / 2, platformHeight, 'start-floor-bricks')
         .setScale(2)
