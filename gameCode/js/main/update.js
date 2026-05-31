@@ -104,7 +104,7 @@ function teleportToLevelEnd(player, trigger) {
         this.tpTube.body.immovable = true;
         this.physics.add.collider(player, this.tpTube);
 
-        this.add.rectangle(worldWidth - screenWidth, 0, worldWidth, screenHeight, 0x422d08)
+        this.add.rectangle(worldWidth - screenWidth, 0, worldWidth, screenHeight, 0x4b91db)
             .setOrigin(0)
             .setDepth(-1);
 
