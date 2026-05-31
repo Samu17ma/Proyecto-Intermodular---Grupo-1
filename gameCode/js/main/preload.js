@@ -30,7 +30,7 @@ function preload() {
     this.load.bitmapFont('carrier_command', 'assets/fonts/carrier_command.png', 'assets/fonts/carrier_command.xml');
     const plugins = ['rexvirtualjoystickplugin', 'rexcheckboxplugin', 'rexsliderplugin', 'rexkawaseblurpipelineplugin'];
     plugins.forEach(plugin => {
-        this.load.plugin(plugin, `https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/${plugin}.min.js`, true);
+        this.load.plugin(plugin, `https://cdn.jsdelivr.net/npm/phaser3-rex-plugins@1.80.20/dist/${plugin}.min.js`, true);
     });
 
     // Determine level style
